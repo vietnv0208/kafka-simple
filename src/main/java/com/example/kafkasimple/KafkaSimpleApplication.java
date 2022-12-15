@@ -30,8 +30,8 @@ public class KafkaSimpleApplication {
         MessageListener listener = context.getBean(MessageListener.class);
 
         producer.sendMessage("Hello, World!");
-        listener.latch.await(10, TimeUnit.SECONDS);
 
+        listener.latch.await(10, TimeUnit.SECONDS);
         context.close();
 
     }
@@ -84,7 +84,7 @@ public class KafkaSimpleApplication {
     public static class MessageListener {
         private CountDownLatch latch = new CountDownLatch(3);
 
-        @KafkaListener(topics = "${message.topic.name}", groupId = "groupId-foo")
+        @KafkaListener(topics = "${message.topic.name}")
         public void listenGroupFoo(String message) {
             System.out.println("========= Received Message in group foo: " + message);
         }
