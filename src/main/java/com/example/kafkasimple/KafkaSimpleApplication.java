@@ -23,13 +23,15 @@ import java.util.concurrent.TimeUnit;
 @SpringBootApplication
 @Slf4j
 public class KafkaSimpleApplication {
-
+    static ConfigurableApplicationContext context;
     public static void main(String[] args) throws InterruptedException {
-        ConfigurableApplicationContext context = SpringApplication.run(KafkaSimpleApplication.class, args);
+        context = SpringApplication.run(KafkaSimpleApplication.class, args);
         MessageProducer producer = context.getBean(MessageProducer.class);
         MessageListener listener = context.getBean(MessageListener.class);
 
         producer.sendMessage("Hello, World!");
+        for(int i=0;i<10;i++)
+        producer.sendMessage("Hello "+i);
 
         listener.latch.await(10, TimeUnit.SECONDS);
         context.close();
@@ -84,9 +86,9 @@ public class KafkaSimpleApplication {
     public static class MessageListener {
         private CountDownLatch latch = new CountDownLatch(3);
 
-        @KafkaListener(topics = "${message.topic.name:cdataTwd}")
+        @KafkaListener(topics = "${message.topic.name}")
         public void listenGroupFoo(String message) {
-            System.out.println("Received Message in group foo: " + message);
+            System.out.println("Received Message in topic "+ context.getEnvironment().getProperty("message.topic.name")+" : " + message);
             latch.countDown();
         }
 
@@ -119,7 +121,7 @@ public class KafkaSimpleApplication {
             System.out.println("Received Message in filtered listener: " + message);
         }
 
-        @KafkaListener(topics = "cdata")
+        @KafkaListener(topics = "cdataTwd")
         public void receive(ConsumerRecord<?, ?> consumerRecord) {
             log.info("received payload='{}'", consumerRecord.toString());
             latch.countDown();
