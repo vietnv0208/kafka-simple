@@ -84,9 +84,10 @@ public class KafkaSimpleApplication {
     public static class MessageListener {
         private CountDownLatch latch = new CountDownLatch(3);
 
-        @KafkaListener(topics = "${message.topic.name}")
+        @KafkaListener(topics = "${message.topic.name:cdataTwd}")
         public void listenGroupFoo(String message) {
-            System.out.println("========= Received Message in group foo: " + message);
+            System.out.println("Received Message in group foo: " + message);
+            latch.countDown();
         }
 
         @KafkaListener(topics = "${message.topic.name}")
@@ -94,7 +95,7 @@ public class KafkaSimpleApplication {
             @Payload String message,
             @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
             System.out.println(
-                "========= Received Message: " + message + "from partition: " + partition);
+                "Received Message: " + message + "from partition: " + partition);
         }
 
         /*
