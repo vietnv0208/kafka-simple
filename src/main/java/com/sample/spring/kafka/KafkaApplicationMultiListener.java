@@ -1,7 +1,7 @@
-package com.example.kafkasimple;
+package com.sample.spring.kafka;
 
-import com.example.kafkasimple.config.Farewell;
-import com.example.kafkasimple.config.Greeting;
+import com.sample.spring.kafka.dto.Farewell;
+import com.sample.spring.kafka.dto.Greeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

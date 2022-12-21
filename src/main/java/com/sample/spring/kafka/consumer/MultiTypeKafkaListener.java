@@ -1,5 +1,7 @@
-package com.example.kafkasimple.config;
+package com.sample.spring.kafka.consumer;
 
+import com.sample.spring.kafka.dto.Farewell;
+import com.sample.spring.kafka.dto.Greeting;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -16,11 +18,6 @@ public class MultiTypeKafkaListener {
     @KafkaHandler
     public void handleF(Farewell farewell) {
         System.out.println("Farewell received: " + farewell);
-    }
-
-    @KafkaHandler
-    public void handleS(String object) {
-        System.out.println("String type received: " + object);
     }
 
     @KafkaHandler(isDefault = true)
