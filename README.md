@@ -24,3 +24,4 @@ WRITE SOME EVENTS INTO THE TOPIC<br>
 
 READ THE EVENTS<br>
 `bin/kafka-console-consumer.sh --topic cdata --from-beginning --bootstrap-server localhost:29092`
+bin/kafka-console-consumer.sh --topic multitype --from-beginning --bootstrap-server localhost:29092

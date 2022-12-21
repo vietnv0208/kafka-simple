@@ -17,6 +17,8 @@ public class KafkaTopicConfig {
     private String bootstrapAddress;
     @Value(value = "${message.topic.name}")
     private String topicName;
+    @Value(value = "${multi.type.topic.name}")
+    private String multiTypeTopicName;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -28,5 +30,10 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic topic1() {
         return new NewTopic(topicName, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic multiTypeTopic() {
+        return new NewTopic(multiTypeTopicName, 1, (short) 1);
     }
 }
