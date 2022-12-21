@@ -18,6 +18,11 @@ public class MultiTypeKafkaListener {
         System.out.println("Farewell received: " + farewell);
     }
 
+    @KafkaHandler
+    public void handleS(String object) {
+        System.out.println("String type received: " + object);
+    }
+
     @KafkaHandler(isDefault = true)
     public void unknown(Object object) {
         System.out.println("Unkown type received: " + object);
